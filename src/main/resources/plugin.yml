@@ -1,0 +1,10 @@
+name: DetivenChat
+version: '${version}'
+main: ir.detiven.detivenchat.DetivenChat
+api-version: '1.13'
+authors: [Detiven]
+
+soft-depends:
+  - PlaceholderAPI
+  - PremiumVanish
+  - SuperVanish

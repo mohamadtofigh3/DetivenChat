@@ -1,0 +1,457 @@
+# this plugin created by Detiven!
+
+# =============================REQUIRE============================= #
+
+# for buy the license, get the store: https://craft-tech.xyz/
+License: "please-enter-license"
+# please enter your server ip address.
+Server: "please-enter-ip"
+
+# ===============================END=============================== #
+
+
+# log the all module engine?
+Logger: true
+Timer: 10 # in minute!
+
+# plugin language
+Language:
+  Reload: "&8[&bDetivenChat&8] &7reloaded in %sms" # replaced %s the reload time!
+  Help:
+    - "&8[&bDetivenChat&8] &7help command list&8:"
+    - "&7 - &b/detivenchat reload &8| &7for reload the this plugin and module."
+    - "&7 - &b/detivenchat help &8| &7show this message to you."
+
+# module list config.
+Module:
+
+  # connection message module.
+  ConnectionMessage:
+
+    # customizable message and permissions.
+    Messages:
+
+      # vip join message
+      VipMessage:
+
+        # "" = disable permissions.
+        Permission: "detivenchat.connection.vip"
+
+        # action for message.
+        # - Welcome
+        # - Join
+        # - Quit
+        Action: "Join"
+
+        # "" = disable message
+        Message: " &3&l[VIP] &b%player_name% &7has joined the server"
+
+      # join before message section.
+      WelcomeMessage:
+
+        # "" = disable permissions.
+        Permission: ""
+
+        # action for message.
+        # - Welcome
+        # - Join
+        # - Quit
+        Action: "Welcome"
+
+        # "" = disable message
+        Message: " &2&l[WELCOME] &a%player_name% &7welcome the server"
+
+      # join message section.
+      JoinMessage:
+
+        # "" = disable permissions.
+        Permission: ""
+
+        # action for message.
+        # - Welcome
+        # - Join
+        # - Quit
+        Action: "Join"
+
+        # "" = disable message
+        Message: " &6&l[Join] &e%player_name% &7has joined the server"
+
+      # quit message section.
+      QuitMessage:
+
+        # "" = disable permissions.
+        Permission: ""
+
+        # action for message.
+        # - Welcome
+        # - Join
+        # - Quit
+        Action: "Quit"
+
+        # "" = disable message
+        Message: " &4&l[Quit] &c%player_name% &7has lefted the server"
+
+
+  # chat format module.
+  ChatFormat:
+
+    # formatter.
+    Format: "&7%player_name% &b» &f%message%"
+
+
+  # anti swear module.
+  AntiSwear:
+
+    # replace swear in char? if false cancelled event!
+    # this is unstable!! <--
+    Censor: false
+    CensorChar: "*"
+
+    # warning! this is unstable and hight usage memory and cpu!!!
+    # this is if true, detecting swear with font.
+    # default = false
+    FontReplacer: false
+
+    # staff permission to view filtered message.
+    StaffPermission: "detivenchat.antiswear.notify"
+    BypassPermission: "detivenchat.antiswear.bypass"
+
+    # message. PlaceHolder(%player%, %filtered%)
+    StaffMessage: "&c&l(!) &c%player% &7has tried to swear, tried to send &8'&c%filtered%&8' &7in public chat!"
+    PlayerMessage: "&c&l(!) &c%player% &7not possible to swear in this server!"
+
+    # for anti bypass. if true checking "Hello" -> "Helo"
+    RemoveSpammerChar: true
+
+    # filter message in contains!
+    ReplaceChar:
+      - "k!r:kir"
+      - "k1r:kir"
+      - "k;r:kir"
+      - "ko3h:kos"
+      - "k03h:kos"
+      - "k0sh:kos"
+      - "ko3:kos"
+      - "k03:kos"
+      - "k0s:kos" 
+    ReplaceAir:
+      - "0"
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+      - "5"
+      - "6"
+      - "7" 
+      - "8"
+      - "9"
+      - "`"
+      - "-"
+      - ","
+      - "."
+      - "!"
+      - "@"
+      - "#"
+      - "$"
+      - "%"
+      - "^"
+      - "&"
+      - "*"
+      - "("
+      - ")"
+      - " "
+      - "\u200C"
+      - "\\"
+      - "/"
+      - "{"
+      - "}"
+      - "\""
+      - "'"
+      - ":"
+      - ";"
+      - "|"
+      - "?"
+      - ">"
+      - "<"
+      - "~"
+      - "+"
+      - "="
+      - "_"
+      - "؟"
+    NotFilter:
+      - "kosh"
+    Filter:
+      - "anal"
+      - "anilingus"
+      - "apeshit"
+      - "arsehole"
+      - "asmunch"
+      - "bangbros"
+      - "bareback"
+      - "barenaked"
+      - "bastard"
+      - "bastardo"
+      - "bastinado"
+      - "beaner"
+      - "beaners"
+      - "bestiality"
+      - "birdlock"
+      - "bitch" 
+      - "blowjob"
+      - "bondage"
+      - "boner"
+      - "bukake"
+      - "buldyke"
+      - "bulshit"
+      - "bunghole"
+      - "busty"
+      - "butcheeks"
+      - "buthole"
+      - "camgirl"
+      - "camslut"
+      - "camwhore"
+      - "carpetmuncher"
+      - "circlejerk"
+      - "clitoris"
+      - "clusterfuck"
+      - "coprolagnia"
+      - "coprophilia"
+      - "cornhole"
+      - "creampie"
+      - "cumming"
+      - "cunnilingus"
+      - "cunt"
+      - "darkie"
+      - "daterape"
+      - "deepthroat"
+      - "dendrophilia"
+      - "dildo"
+      - "dinglebery"
+      - "dingleberies"
+      - "dirtypilows"
+      - "dirtysanchez"
+      - "dogiestyle"
+      - "dogystyle"
+      - "dolcet"
+      - "domination"
+      - "dominatrix"
+      - "ejaculation"
+      - "erotic"
+      - "escort"
+      - "eunuch"
+      - "fagot"
+      - "fecal"
+      - "felatio"
+      - "feltch"
+      - "femdom"
+      - "figing"
+      - "fingerbang"
+      - "fingering"
+      - "fisting"
+      - "footjob"
+      - "froting"
+      - "fudgepacker"
+      - "futanari"
+      - "genitals"
+      - "goatcx"
+      - "goatse"
+      - "gokun"
+      - "goregasm"
+      - "grope"
+      - "gspot"
+      - "handjob"
+      - "hentai"
+      - "homoerotic"
+      - "honkey"
+      - "humping"
+      - "incest"
+      - "intercourse"
+      - "jailbait"
+      - "jiz"
+      - "jugs"
+      - "kike"
+      - "kinbaku"
+      - "kinkster"
+      - "kinky"
+      - "knobing"
+      - "lolita"
+      - "lovemaking"
+      - "masturbate"
+      - "milf"
+      - "motherfucker"
+      - "mufdiving"
+      - "nambla"
+      - "gaidm"
+      - "gaydm"
+      - "gaidam"
+      - "gaydam"
+      - "gaidi"
+      - "gaidy"
+      - "gaydy"
+      - "gaydi"
+      - "nawashi"
+      - "negro"
+      - "neonazi"
+      - "nimphomania"
+      - "nudity"
+      - "nympho"
+      - "nymphomania"
+      - "octopussy"
+      - "omorashi"
+      - "orgasm"
+      - "paedophile"
+      - "panties"
+      - "panty"
+      - "pedobear"
+      - "pedophile"
+      - "pising"
+      - "pontang"
+      - "punany"
+      - "popchute"
+      - "porn"
+      - "porno"
+      - "pornography"
+      - "pubes"
+      - "pusy"
+      - "queaf"
+      - "quef"
+      - "quim"
+      - "raghead"
+      - "raping"
+      - "rapist"
+      - "rectum"
+      - "rimjob"
+      - "riming"
+      - "sadism"
+      - "santorum"
+      - "schlong"
+      - "scisoring"
+      - "semen"
+      - "shemale"
+      - "shibari"
+      - "shit"
+      - "shota"
+      - "shrimping"
+      - "slanteye"
+      - "slut"
+      - "smut"
+      - "snowbaling"
+      - "sodomize"
+      - "sodomy"
+      - "strapon"
+      - "strapado"
+      - "suck"
+      - "swastika"
+      - "swinger"
+      - "thresome"
+      - "throating"
+      - "tity"
+      - "topless"
+      - "tosser"
+      - "towelhead"
+      - "tranny"
+      - "tribadism"
+      - "tubgirl"
+      - "tushy"
+      - "twat"
+      - "twink"
+      - "twinkie"
+      - "undressing"
+      - "upskirt"
+      - "urophilia"
+      - "vagina"
+      - "vibrator"
+      - "vorarephilia"
+      - "voyeur"
+      - "vulva"
+      - "wetback"
+      - "yaoi"
+      - "yify"
+      - "zophilia"
+      - "kos"
+      - "mamanto"
+      - "nnto"
+      - "koskesh" 
+      - "coscesh"
+      - "koscesh"
+      - "coskesh"
+      - "koskash"
+      - "coscash"
+      - "koscash"
+      - "coskash"
+      - "jende"
+      - "gende"
+      - "kir"
+      - "binamos"
+      - "binamoc"
+      - "bitch"
+      - "kiry"
+      - "kiri"
+      - "kharto"
+      - "khahareto"
+      - "haromy"
+      - "haromi"
+      - "haromzade"
+      - "har0mzade"
+      - "کس"
+      - "کص"
+      - "کسکش"
+      - "کصکش"
+      - "خواهرتو"
+      - "بیناموس"
+      - "بینامس"
+      - "بیناموص"
+      - "بینامص"
+      - "تیرکس"
+      - "تریکس"
+      - "گانمکس"
+      - "کیر"
+      - "کوص"
+      - "کوس"
+      - "جنده"
+      - "حرومزاده"
+
+
+  # anti spam module.
+  AntiSpam:
+
+    # enable for?
+    Chat: true
+    Command: false
+
+    # cooldown in (second)
+    # 0 = disable cooldown
+    Cooldown: 2
+
+    # messages customize
+    MessageCooldown: "&c&l(!) &7Please wait &c%cooldown% &7second, for send again."
+    BypassPermission: "detivenchat.antispam.bypass"
+
+
+  # mention module.
+  Mention:
+
+    # @name
+    Symbol: "@"
+
+    # @name (color)
+    Color: "&a"
+    EndColor: "&f"
+
+    # send title to target.
+    SendTitle: true
+    TitleTimer: "15,20,15"
+    MessageTitle: "&a&l★ MENTIONS ★"
+    MessageSubTitle: "&7you are mentioned by &a%player%"
+
+    # send action bar to target.
+    SendActionBar: true
+    MessageActionBar: "&a%player% &7mentioned you!"
+
+    # send message to target.
+    SendChatMessage: true
+    MessageChat: "&a%player% &7mentioned you!"
+
+    # send sound to target.
+    SendSound: true
+    SoundName: "ENTITY_PLAYER_LEVELUP"
