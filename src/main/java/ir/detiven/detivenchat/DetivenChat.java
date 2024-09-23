@@ -1,5 +1,6 @@
 package ir.detiven.detivenchat;
 
+import co.aikar.commands.BaseCommand;
 import co.aikar.commands.BukkitCommandManager;
 import ir.detiven.detivenchat.commands.MainCommand;
 import ir.detiven.detivenchat.listener.JoinQuitEvent;
@@ -106,7 +107,9 @@ public final class DetivenChat extends JavaPlugin {
     }
 
     private void registerCommand() {
-        manager.registerCommand(new MainCommand());
+        BaseCommand main = new MainCommand();
+
+        manager.registerCommand(main);
     }
 
     public void logger(String message) {

@@ -2,6 +2,7 @@ package ir.detiven.detivenchat.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import ir.detiven.detivenchat.DetivenChat;
 import ir.detiven.detivenchat.task.SaveDataTask;
@@ -14,6 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandAlias("detivenchat")
+@CommandPermission("detivenchat.commands")
 public class MainCommand extends BaseCommand {
 
     private final DetivenChat plugin = DetivenChat.getInstance();
@@ -21,6 +23,7 @@ public class MainCommand extends BaseCommand {
     private final Config config = plugin.config;
 
     @Subcommand("reload")
+    @CommandPermission("detivenchat.command.reload")
     public void reload(CommandSender sender) {
         long time = reload();
         String message = config.getLanguageReload();
@@ -67,6 +70,7 @@ public class MainCommand extends BaseCommand {
     }
 
     @Subcommand("help")
+    @CommandPermission("detivenchat.command.help")
     public void help(CommandSender sender) {
         config.getLanguageHelp().forEach(sender::sendMessage);
     }
