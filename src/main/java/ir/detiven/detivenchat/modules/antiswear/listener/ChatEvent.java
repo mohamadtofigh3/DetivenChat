@@ -11,6 +11,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatEvent implements Listener {
+
+    private final AntiSwearModule module = AntiSwearModule.getInstance();
+
     private final Config config = DetivenChat.getInstance().config;
 
     @EventHandler
@@ -102,7 +105,7 @@ public class ChatEvent implements Listener {
 
             staff.sendMessage(message);
         }
-        Logger.add(AntiSwearModule.getInstance().getName(), message);
+        Logger.add(module.getName(), message);
         DetivenChat.getInstance().logger(Helper.applyColor(message));
     }
 }

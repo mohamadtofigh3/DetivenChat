@@ -7,12 +7,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import ir.detiven.detivenchat.DetivenChat;
+import ir.detiven.detivenchat.modules.connection.ConnectionModule;
 import ir.detiven.detivenchat.modules.connection.objects.ConnectionAction;
 import ir.detiven.detivenchat.modules.connection.objects.ConnectionObject;
 import ir.detiven.detivenchat.utils.Helper;
 import ir.detiven.detivenchat.utils.config.Config;
+import ir.detiven.detivenchat.utils.log.Logger;
 
 public class ConnectionEvent implements Listener {
+
+    private final ConnectionModule module = ConnectionModule.getInstance();
 
     private final Config config = DetivenChat.getInstance().config;
 
@@ -61,6 +65,7 @@ public class ConnectionEvent implements Listener {
         result = config.support(player, result);
         result = Helper.applyColor(result);
 
+        Logger.add(module.getName(), result);
         return result;
     }
 }
