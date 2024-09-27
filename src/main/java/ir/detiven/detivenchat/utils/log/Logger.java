@@ -24,6 +24,8 @@ public class Logger {
             list = new ArrayList<>();
 
         message = format(module, message);
+        message = message.trim();
+
         list.add(message);
         log.put(module, list);
     }
