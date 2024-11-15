@@ -43,7 +43,7 @@ public final class DetivenChat extends JavaPlugin {
 
     public static boolean isActive = false;
 
-    public Config config;
+    public Config config = null;
 
     @Override
     public void onLoad() {

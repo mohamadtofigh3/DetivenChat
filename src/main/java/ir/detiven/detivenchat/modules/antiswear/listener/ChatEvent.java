@@ -1,10 +1,13 @@
 package ir.detiven.detivenchat.modules.antiswear.listener;
 
 import ir.detiven.detivenchat.DetivenChat;
+import ir.detiven.detivenchat.api.event.PlayerSwearEvent;
 import ir.detiven.detivenchat.modules.antiswear.AntiSwearModule;
 import ir.detiven.detivenchat.utils.Helper;
 import ir.detiven.detivenchat.utils.config.Config;
 import ir.detiven.detivenchat.utils.log.Logger;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,6 +46,13 @@ public class ChatEvent implements Listener {
         }
 
         if (detected && !swear.isEmpty()) {
+            PlayerSwearEvent swearEvent = new PlayerSwearEvent(player, message, swear);
+            Bukkit.getPluginManager().callEvent(swearEvent);
+
+            if (swearEvent.isCancelled()) {
+                return;
+            }
+
             if (config.getAntiSwearCensor()) {
                 int count = swear.length();
                 StringBuilder builder = new StringBuilder();
