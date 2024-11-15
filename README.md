@@ -3,24 +3,24 @@
 **Feature:**
 - Everyting is customizable.
 - AntiSwear:
-  1. detection with font
-  2. anti bypass system
-  3. staff message
+  - 1. detection with font
+  - 2. anti bypass system
+  - 3. staff message
 - Mention:
-  1. title & subtitle
-  2. sound
-  3. action bar message
-  4. chat message
+  - 1. title & subtitle
+  - 2. sound
+  - 3. action bar message
+  - 4. chat message
 - Connection:
-  1. join & quit message
-  2. with permission
-  3. welcome message
+  - 1. join & quit message
+  - 2. with permission
+  - 3. welcome message
 - AntiSpam:
-  1. chat anti spam 
-  2. [command anti spam coming soon.]
+  - 1. chat anti spam 
+  - 2. [command anti spam coming soon.]
 - ChatFormat:
-  1. format changable
-  2. support placeholder api
+  - 1. format changable
+  - 2. support placeholder api
 
 **Permission:**
 - `detivenchat.commands` : access for use `/detivenchat`
@@ -37,7 +37,6 @@
 import ir.detiven.detivenchat.api.API;
 import ir.detiven.detivenchat.DetivenChat;
 import ir.detiven.detivenchat.modules.antiswear.objects.SwearObject;
-
 
 import org.bukkit.plugin.java.JavaPlugin;
 
