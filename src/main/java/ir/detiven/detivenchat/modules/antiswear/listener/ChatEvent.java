@@ -3,6 +3,7 @@ package ir.detiven.detivenchat.modules.antiswear.listener;
 import ir.detiven.detivenchat.DetivenChat;
 import ir.detiven.detivenchat.api.event.PlayerSwearEvent;
 import ir.detiven.detivenchat.modules.antiswear.AntiSwearModule;
+import ir.detiven.detivenchat.modules.antiswear.objects.SwearObject;
 import ir.detiven.detivenchat.utils.Helper;
 import ir.detiven.detivenchat.utils.config.Config;
 import ir.detiven.detivenchat.utils.log.Logger;
@@ -17,36 +18,29 @@ public class ChatEvent implements Listener {
 
     private final AntiSwearModule module = AntiSwearModule.getInstance();
 
-    private final Config config = DetivenChat.getInstance().config;
+    private final DetivenChat plugin = DetivenChat.getInstance();
+
+    private final Config config = plugin.getPluginConfig();
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
-        String fake = Helper.fontBreaker(message);
 
         if (event.isCancelled())
             return;
         if (player.hasPermission(config.getAntiSwearBypassPermission()))
             return;
-        fake = format(fake);
 
-        String swear = "";
-        boolean detected = false;
-        for (String badWord : config.getAntiSwearFilter()) {
-            if (detected)
-                break;
-            for (String word : config.getAntiSwearNotFilter()) {
-                if (fake.contains(Helper.lower(badWord)) && !fake.contains(Helper.lower(word))) {
-                    swear = badWord;
-                    detected = true;
-                    break;
-                }
-            }
-        }
+        SwearObject object = plugin.getApi().isSwear(
+                message,
+                config.getAntiSwearFontReplacer(),
+                config.getAntiSwearRemoveSpammerChar(),
+                !config.getAntiSwearReplaceChar().isEmpty(),
+                !config.getAntiSwearReplaceAir().isEmpty());
 
-        if (detected && !swear.isEmpty()) {
-            PlayerSwearEvent swearEvent = new PlayerSwearEvent(player, message, swear);
+        if (object.isSwear()) {
+            PlayerSwearEvent swearEvent = new PlayerSwearEvent(player, message, object.getWord());
             Bukkit.getPluginManager().callEvent(swearEvent);
 
             if (swearEvent.isCancelled()) {
@@ -54,41 +48,21 @@ public class ChatEvent implements Listener {
             }
 
             if (config.getAntiSwearCensor()) {
-                int count = swear.length();
+                int count = object.getWord().length();
                 StringBuilder builder = new StringBuilder();
 
                 for (int i = 1; i < count; i++) {
                     builder.append(config.getAntiSwearCensorChar());
                 }
 
-                message = message.replace(swear, builder.toString());
+                message = message.replace(object.getWord(), builder.toString());
                 event.setMessage(message);
             } else {
-                reportToPlayer(player, swear);
+                reportToPlayer(player, object.getWord());
                 event.setCancelled(true);
             }
-            reportToStaff(player, swear);
+            reportToStaff(player, object.getWord());
         }
-    }
-
-    private String format(String fake) {
-        if (!config.getAntiSwearReplaceChar().isEmpty()) {
-            for (String s : config.getAntiSwearReplaceChar()) {
-                String[] list = s.split(":");
-                try {
-                    String a = list[0];
-                    String b = list[1];
-                    fake = fake.replaceAll(a, b);
-                } catch (IndexOutOfBoundsException ignored) {
-                    ;
-                }
-            }
-        }
-        fake = Helper.clearCharacter(fake, config.getAntiSwearReplaceAir());
-        if (config.getAntiSwearRemoveSpammerChar()) {
-            fake = Helper.clearSpammedChar(fake);
-        }
-        return Helper.lower(fake);
     }
 
     private void reportToPlayer(Player player, String swear) {

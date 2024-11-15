@@ -1,5 +1,7 @@
 package ir.detiven.detivenchat.api;
 
+import ir.detiven.detivenchat.modules.antiswear.objects.SwearObject;
+
 /**
  * 
  *   by: Detiven
@@ -16,9 +18,9 @@ public interface API {
      * replacer: true
      * 
      * @param str is bad word or contains bad word, return is true.
-     * @return boolean value.
+     * @return SwearObject.
      */
-    boolean isSwear(String str);
+    SwearObject isSwear(String str);
 
     /**
      * + Default:
@@ -27,9 +29,9 @@ public interface API {
      * 
      * @param str is bad word or contains bad word, return is true.
      * @param detectWithFont if need to detect with font, use true. (if disable in config. this is not working!)
-     * @return boolean value.
+     * @return SwearObject.
      */
-    boolean isSwear(String str, boolean detectWithFont);
+    SwearObject isSwear(String str, boolean detectWithFont);
 
     /**
      * + Default:
@@ -38,17 +40,27 @@ public interface API {
      * @param str is bad word or contains bad word, return is true.
      * @param detectWithFont if need to detect with font, use true. (if disable in config.yml, this is not working!)
      * @param clearSpammedChar clear spammed char. (selectable in config.yml)
-     * @return boolean value.
+     * @return SwearObject.
      */
-    boolean isSwear(String str, boolean detectWithFont, boolean clearSpammedChar);
+    SwearObject isSwear(String str, boolean detectWithFont, boolean clearSpammedChar);
 
     /**
      * @param str is bad word or contains bad word, return is true.
      * @param detectWithFont if need to detect with font, use true. (if disable in config.yml, this is not working!)
      * @param clearSpammedChar clear spammed char. (selectable in config.yml)
      * @param replacer replacing character selected in config.yml (for anti bypass!)
-     * @return boolean value.
+     * @return SwearObject.
      */
-    boolean isSwear(String str, boolean detectWithFont, boolean clearSpammedChar, boolean replacer);
+    SwearObject isSwear(String str, boolean detectWithFont, boolean clearSpammedChar, boolean replacer);
+
+    /**
+     * @param str is bad word or contains bad word, return is true.
+     * @param detectWithFont if need to detect with font, use true. (if disable in config.yml, this is not working!)
+     * @param clearSpammedChar clear spammed char. (selectable in config.yml)
+     * @param replacer replacing character selected in config.yml (for anti bypass!)
+     * @param clearCharacter filter character, in config.yml (for anti bypass!)
+     * @return SwearObject.
+     */
+    SwearObject isSwear(String str, boolean detectWithFont, boolean clearSpammedChar, boolean replacer, boolean clearCharacter);
     
 }

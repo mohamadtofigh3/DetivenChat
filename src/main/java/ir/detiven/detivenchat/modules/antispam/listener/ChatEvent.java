@@ -16,7 +16,7 @@ import ir.detiven.detivenchat.utils.config.Config;
 
 public class ChatEvent implements Listener {
 
-    private final Config config = DetivenChat.getInstance().config;
+    private final Config config = DetivenChat.getInstance().getPluginConfig();
 
     private final long cooldown = TimeUnit.SECONDS.toMillis(config.getAntiSpamCooldown());
 

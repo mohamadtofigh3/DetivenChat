@@ -4,16 +4,18 @@ import ir.detiven.detivenchat.DetivenChat;
 import ir.detiven.detivenchat.modules.connection.objects.ConnectionAction;
 import ir.detiven.detivenchat.modules.connection.objects.ConnectionObject;
 import ir.detiven.detivenchat.utils.Helper;
-import lombok.AccessLevel;
-import lombok.Getter;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+
 import me.clip.placeholderapi.PlaceholderAPI;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.AccessLevel;
+import lombok.Getter;
 
 @Getter(AccessLevel.PUBLIC)
 public class Config {
@@ -81,9 +83,9 @@ public class Config {
             String message = config.getString(("Module.ConnectionMessage.Messages." + key + ".Message"));
             String action = config.getString(("Module.ConnectionMessage.Messages." + key + ".Action"));
             ConnectionObject object = new ConnectionObject(
+                    ConnectionAction.valueOf(action.toUpperCase()),
                     permission,
-                    message,
-                    ConnectionAction.valueOf(action.toUpperCase()));
+                    message);
 
             connectionObjects.add(object);
         }
@@ -134,7 +136,7 @@ public class Config {
     }
 
     public String support(Player player, String message) {
-        if (DetivenChat.supportPlaceholder) {
+        if (DetivenChat.getInstance().isInstalledPlaceholderAPI()) {
             return PlaceholderAPI.setPlaceholders(player, message);
         }
         return message;

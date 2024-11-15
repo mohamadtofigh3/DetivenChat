@@ -20,7 +20,7 @@ public class MainCommand extends BaseCommand {
 
     private final DetivenChat plugin = DetivenChat.getInstance();
 
-    private final Config config = plugin.config;
+    private final Config config = plugin.getPluginConfig();
 
     @Subcommand("reload")
     @CommandPermission("detivenchat.command.reload")

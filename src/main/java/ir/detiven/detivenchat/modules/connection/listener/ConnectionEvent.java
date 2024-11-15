@@ -18,7 +18,7 @@ public class ConnectionEvent implements Listener {
 
     private final ConnectionModule module = ConnectionModule.getInstance();
 
-    private final Config config = DetivenChat.getInstance().config;
+    private final Config config = DetivenChat.getInstance().getPluginConfig();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

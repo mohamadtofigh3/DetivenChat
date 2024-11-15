@@ -1,28 +1,18 @@
 package ir.detiven.detivenchat.modules.connection.objects;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@Getter
+@RequiredArgsConstructor
 public class ConnectionObject {
+
+    private final ConnectionAction action;
 
     private final String permission;
 
     private final String message;
-
-    private final ConnectionAction action;
-
-    public ConnectionObject(String permission, String message, ConnectionAction action) {
-        this.permission = permission;
-        this.message = message;
-        this.action = action;
-    }
-
-    public ConnectionAction getAction() {
-        return action;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
+    
 }

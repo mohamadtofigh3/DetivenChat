@@ -82,9 +82,6 @@ public class Helper {
     }
 
     public static String fontBreaker(String font) {
-        if (!DetivenChat.getInstance().config.getAntiSwearFontReplacer()) {
-            return font;
-        }
         Transliterator transliterator = Transliterator.getInstance("Any-Latin; Latin-ASCII");
         return transliterator.transliterate(font);
     }

@@ -2,6 +2,9 @@ package ir.detiven.detivenchat;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.BukkitCommandManager;
+
+import ir.detiven.detivenchat.api.API;
+import ir.detiven.detivenchat.api.DetivenChatAPI;
 import ir.detiven.detivenchat.commands.MainCommand;
 import ir.detiven.detivenchat.listener.JoinQuitEvent;
 import ir.detiven.detivenchat.modules.antispam.AntiSpamModule;
@@ -13,7 +16,7 @@ import ir.detiven.detivenchat.task.SaveDataTask;
 import ir.detiven.detivenchat.utils.Helper;
 import ir.detiven.detivenchat.utils.config.Config;
 import ir.detiven.detivenchat.utils.log.Logger;
-import lombok.Getter;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -28,30 +31,38 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public final class DetivenChat extends JavaPlugin {
 
     @Getter
     private static DetivenChat instance = null;
 
-    private BukkitCommandManager manager;
-
-    public final List<PluginModule> modules = new ArrayList<>();
-
     public static final Set<Player> getEveryone = new HashSet<>();
 
-    public static boolean supportPlaceholder = false;
+    private BukkitCommandManager manager = null;
 
-    public static boolean isActive = false;
+    public boolean installedPlaceholderAPI = false;
 
-    public Config config = null;
+    public List<PluginModule> modules = null;
+
+    public Config pluginConfig = null;
+
+    private boolean active = false;
+
+    @Setter
+    public API api = null;
 
     @Override
     public void onLoad() {
         if (instance == null) {
             instance = this;
-            config = new Config();
+            modules = new ArrayList<>();
+            pluginConfig = new Config();
             saveDefaultConfig();
-            config.init();
+            getPluginConfig().init();
             loadModule();
         }
     }
@@ -59,12 +70,15 @@ public final class DetivenChat extends JavaPlugin {
     @Override
     public void onEnable() {
         handleLicense();
-        if (isActive) {
+        if (isActive()) {
             logger("&8[&3License&8] &alicense is detected. enabling plugin..");
         } else {
             logger("&8[&3License&8] &clicense is invalid or expired!");
             return;
         }
+
+        // set defualt object of api
+        setApi(new DetivenChatAPI());
 
         init();
 
@@ -75,7 +89,7 @@ public final class DetivenChat extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (!isActive) {
+        if (!isActive()) {
             modules.clear();
             return;
         }
@@ -99,10 +113,10 @@ public final class DetivenChat extends JavaPlugin {
     }
 
     private void runTask() {
-        if (config.getSettingLogger()) {
+        if (getPluginConfig().getSettingLogger()) {
             SaveDataTask.isRun = true;
             SaveDataTask task = new SaveDataTask();
-            task.runTaskTimer(this, 0L, config.getSettingTimer());
+            task.runTaskTimer(this, 0L, getPluginConfig().getSettingTimer());
         }
     }
 
@@ -122,15 +136,15 @@ public final class DetivenChat extends JavaPlugin {
      */
     private void handleLicense() {
         String link = "https://api.craft-tech.xyz/stv1/license.php?license=%s&plugin_name=DetivenChat&server_ip=";
-        String server = config.getSettingServer();
-        String token = config.getSettingLicense();
+        String server = getPluginConfig().getSettingServer();
+        String token = getPluginConfig().getSettingLicense();
         link = String.format(link, token).concat(server);
         if (token.equals("please-enter-license")) {
-            logger("&8[&3License&8] &cplease check 'config.yml', and enter your license");
+            logger("&8[&3License&8] &cplease check 'getPluginConfig().yml', and enter your license");
             return;
         }
         if (server.equals("please-enter-ip")) {
-            logger("&8[&3License&8] &cplease check 'config.yml', and enter your server ip");
+            logger("&8[&3License&8] &cplease check 'getPluginConfig().yml', and enter your server ip");
             return;
         }
         if (!Helper.isInternetAvailable()) {
@@ -151,7 +165,7 @@ public final class DetivenChat extends JavaPlugin {
             connection.disconnect();
             String response = content.toString();
             if (response.contains("\"status\":\"valid\"")) {
-                isActive = true;
+                active = true;
             } else if (response
                     .contains("{\"status\":\"invalid\",\"message\":\"License already in use on another server\"}")) {
                 logger("&8[&3License&8] &clicense already in use on another server!");
@@ -163,8 +177,8 @@ public final class DetivenChat extends JavaPlugin {
     }
 
     private void init() {
-        supportPlaceholder = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
-        getEveryone.addAll(Bukkit.getOnlinePlayers());
+        installedPlaceholderAPI = Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
+        getEveryone.addAll(Bukkit.getOnlinePlayers()); // support pluginmanager
         getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
         manager = new BukkitCommandManager(this);
         registerCommand();
