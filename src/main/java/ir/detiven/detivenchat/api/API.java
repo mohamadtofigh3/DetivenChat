@@ -13,9 +13,10 @@ public interface API {
     
     /**
      * + Default:
-     * detectWithFont: true
-     * clearSpammedChar: true
-     * replacer: true
+     * detectWithFont: false
+     * clearSpammedChar: false
+     * replacer: false
+     * clearCharacter: false
      * 
      * @param str is bad word or contains bad word, return is true.
      * @return SwearObject.
@@ -24,8 +25,9 @@ public interface API {
 
     /**
      * + Default:
-     * clearSpammedChar: true
-     * replacer: true
+     * clearSpammedChar: false
+     * replacer: false
+     * clearCharacter: false
      * 
      * @param str is bad word or contains bad word, return is true.
      * @param detectWithFont if need to detect with font, use true. (if disable in config. this is not working!)
@@ -35,7 +37,8 @@ public interface API {
 
     /**
      * + Default:
-     * replacer: true
+     * replacer: false
+     * clearCharacter: false
      * 
      * @param str is bad word or contains bad word, return is true.
      * @param detectWithFont if need to detect with font, use true. (if disable in config.yml, this is not working!)
@@ -45,6 +48,9 @@ public interface API {
     SwearObject isSwear(String str, boolean detectWithFont, boolean clearSpammedChar);
 
     /**
+     * + Default:
+     * clearCharacter: false
+     *
      * @param str is bad word or contains bad word, return is true.
      * @param detectWithFont if need to detect with font, use true. (if disable in config.yml, this is not working!)
      * @param clearSpammedChar clear spammed char. (selectable in config.yml)
